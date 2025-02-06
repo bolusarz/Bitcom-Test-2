@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polling App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header img {
+            width: 100px; /* Adjust the size of the logo */
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        nav {
+            margin: 70px 0;
+            text-align: center;
+            justify-content: center;
+        }
+
+        nav ul {
+            display: flex;
+            flex-direction: row;
+            list-style-type: none;
+            padding: 0;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav ul li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 20px;
+            text-align: center;
+        }
+
+        nav ul li img {
+            width: 100%; /* Size of the images */
+            height: 50vh;
+            margin-bottom: 10px; /* Space between image and text */
+            border-radius: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: #003366;
+            background-color: #fff;
+            padding: 12px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            display: block; /* Ensures the link is a block element */
+        }
+
+        nav ul li a:hover {
+            background-color: #00509e;
+            color: #fff;
+        }
+
+        footer {
+            background-color: #003366;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to the Polling App</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+                <img src="../static/images/political-poll-word-badge-blue-background-44759312.webp" alt="Polling Unit Icon">
+                <a href="/polling_unit_find">View Polling Unit Results</a>
+            </li>
+            <li>
+                <img src="../static/images/poll-word-black-block-vote-text-50558838.webp" alt="LGA Icon">
+                <a href="/lga_results">View LGA Results</a>
+            </li>
+            <li>
+                <img src="../static/images/elections-and-voting-concept-check-mark-and-vote-text-on-wooden-block-photo.webp" alt="Add Results Icon">
+                <a href="/add_results">Store New Polling Unit Results</a>
+            </li>
+        </ul>
+    </nav>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Polling App. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 20px 0;
+        }
+
+        .form-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #00509e;
+        }
+
+        .result-list {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-list ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .result-list li {
+            padding: 8px 0;
+            font-size: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #003366;
+            color: #fff;
+            font-size: 0.9rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Add Polling Unit Results</h1>
+    </header>
+
+    <div class="form-container">
+        <form method="POST">
+            <label for="polling_unit_uniqueid">Polling Unit:</label>
+            <select name="polling_unit_uniqueid" required>
+                <option value="" disabled selected>Select Polling Unit</option>
+                {% for pu in polling_units %}
+                    <option value="{{ pu.uniqueid }}">{{ pu.polling_unit_name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="party_abbreviation">Party:</label>
+            <select name="party_abbreviation" required>
+                <option value="" disabled selected>Select Party</option>
+                {% for party in parties %}
+                    <option value="{{ party.party_abbreviation }}">{{ party.party_abbreviation }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="party_score">Party Score:</label>
+            <input type="number" name="party_score" required>
+
+            <button type="submit">Add Result</button>
+        </form>
+    </div>
+
+    {% if results %}
+        <div class="result-list">
+            <h2 style="text-align: center;">Results for Polling Unit ID: {{ polling_unit_uniqueid }}</h2>
+            <ul>
+                {% for result in results %}
+                    <li>{{ result.party_abbreviation }}: {{ result.party_score }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% elif polling_unit_uniqueid %}
+        <p style="text-align: center; color: #e74c3c;">No results found for this polling unit.</p>
+    {% endif %}
+
+    <footer>
+        <p>&copy; <span id="year"></span> Polling App. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>

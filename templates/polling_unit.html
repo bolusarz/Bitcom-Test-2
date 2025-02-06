@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polling Unit Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #003366;
+        }
+
+        .results-container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            background-color: #e0e0e0;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 1.2rem;
+        }
+
+        li:nth-child(even) {
+            background-color: #d3d3d3;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .no-results {
+            font-size: 1.1rem;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #003366;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Polling Unit Results for Polling Unit ID: {{ polling_unit_uniqueid }}</h1>
+    </header>
+
+    <div class="results-container">
+        {% if results %}
+            <h2>Results for Polling Unit ID: {{ polling_unit_uniqueid }}</h2>
+            <ul>
+                {% for result in results %}
+                    <li>{{ result.party_abbreviation }}: {{ result.party_score }}</li>
+                {% endfor %}
+            </ul>
+        {% elif polling_unit_uniqueid %}
+            <p class="no-results">No results found for this polling unit.</p>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Polling App. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    
+</body>
+</html>

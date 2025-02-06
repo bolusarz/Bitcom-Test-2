@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LGA Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 20px 0;
+            color: #003366;
+        }
+
+        .form-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #00509e;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #003366;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #003366;
+            color: #fff;
+            font-size: 0.9rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h2 style="color: #fff;">Select a LGA</h2>
+    </header>
+
+    <div class="form-container">
+        <form id="lgaForm">
+            <label for="lga_id">Select LGA:</label>
+            <select name="lga_id" id="lga_id">
+                {% if lgas %}
+                    {% for lga in lgas %}
+                        <option value="{{ lga.lga_id }}" {% if selected_lga == lga.lga_id %}selected{% endif %}>
+                            {{ lga.lga_name }}
+                        </option>
+                    {% endfor %}
+                {% else %}
+                    <option disabled>No LGAs available</option>
+                {% endif %}
+            </select>
+            <button type="submit">Get Results</button>
+        </form>
+    </div>
+
+    {% if results %}
+        <h2 style="text-align: center;">Results</h2>
+        <table>
+            <tr>
+                <th>Party</th>
+                <th>Total Score</th>
+            </tr>
+            {% for row in results %}
+                <tr>
+                    <td>{{ row.party_abbreviation }}</td>
+                    <td>{{ row.total_score }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p style="text-align: center; color: #e74c3c;">No results found</p>
+    {% endif %}
+
+    <footer>
+        <p>&copy; <span id="year"></span> Polling App. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+        document.getElementById("lgaForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let lgaId = document.getElementById("lga_id").value;
+            if (lgaId) {
+                window.location.href = `/lga_results/${lgaId}`;
+            }
+        });
+    </script>
+
+</body>
+</html>
