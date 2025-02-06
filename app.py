@@ -145,4 +145,4 @@ def show_results(polling_unit_uniqueid):
     return render_template("add_results.html", results=results, polling_unit_uniqueid=polling_unit_uniqueid)
 # 🔹 Run Flask App
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
