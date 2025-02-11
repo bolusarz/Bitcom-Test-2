@@ -6,12 +6,13 @@ app = Flask(__name__)
 # 🔹 Function to Get DB Connection
 def get_db_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",  # Update if you set a password
-        database="bincom_test"
+        host="ol5tz0yvwp930510.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+        user="dd5nl96p61stlpkk",  
+        password="im8xqo3y6t3m8lni",  
+        port="3306",
+        database="f3lfgdazfx4amtti"
     )
-
+    
 # 🔹 Home Route
 @app.route('/')
 def index():
