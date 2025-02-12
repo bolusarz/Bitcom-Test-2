@@ -1,3 +1,4 @@
 Flask==3.1.0
 mysql_connector_repackaged==0.3.1
 gunicorn==23.0.0
+mysql.connector==2.2.9
